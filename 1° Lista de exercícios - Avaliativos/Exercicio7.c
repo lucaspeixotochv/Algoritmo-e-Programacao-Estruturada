@@ -3,7 +3,10 @@
 
 #define TAMANHO 1000
 
-int main() {
+int main()
+{
+
+    // Código feito por Lucas Peixoto
 
     int qntTermos, j = 3, qntTermosFixo;
 
@@ -14,23 +17,30 @@ int main() {
 
     qntTermosFixo = qntTermos;
 
-    for(int i = 0; i < 3; i++) {
-        if (i > 0) {
+    for (int i = 0; i < 3; i++)
+    {
+        if (i > 0)
+        {
             FibonacciSequencia[i] = 1;
-        } else FibonacciSequencia[i] = 0;
+        }
+        else
+            FibonacciSequencia[i] = 0;
     }
 
     qntTermos -= 3;
 
-    if(qntTermos > 3){
-        while(qntTermos != 0){
-        FibonacciSequencia[j] = (FibonacciSequencia[j - 1] + FibonacciSequencia[j - 2]);
-        j++;
-        qntTermos--;
+    if (qntTermos > 3)
+    {
+        while (qntTermos != 0)
+        {
+            FibonacciSequencia[j] = (FibonacciSequencia[j - 1] + FibonacciSequencia[j - 2]);
+            j++;
+            qntTermos--;
         }
     }
-    
-    for(int i = 0; i < qntTermosFixo; i++){
+
+    for (int i = 0; i < qntTermosFixo; i++)
+    {
         printf("%d ", FibonacciSequencia[i]);
     }
 

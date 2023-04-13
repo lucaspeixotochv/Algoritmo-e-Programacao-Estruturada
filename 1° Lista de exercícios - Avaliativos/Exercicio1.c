@@ -4,6 +4,9 @@
 
 int main()
 {
+
+    // Código feito por Lucas Peixoto
+
     setlocale(LC_ALL, "");
 
     int A, B, C, D;

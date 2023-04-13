@@ -7,25 +7,26 @@
 int main()
 {
 
-    int numero, listaNumeros[TAMANHO], j=0;
+    // Código feito por Lucas Peixoto
+
+    int numero, listaNumeros[TAMANHO], j = 0;
 
     printf("Informe um numero : ");
     scanf("%d", &numero);
 
-    for(int i = 1; i <= numero; i++){
-        if(numero % i == 0){
+    for (int i = 1; i <= numero; i++)
+    {
+        if (numero % i == 0)
+        {
             listaNumeros[j] = i;
             j++;
         }
     }
 
-    printf("[");
-
-    for(int i = 0; i < j; i++){
+    for (int i = 0; i < j; i++)
+    {
         printf("%d%c", listaNumeros[i], (i == j - 1 ? '\0' : ','));
     }
-
-    printf("]");
 
     return 0;
 }

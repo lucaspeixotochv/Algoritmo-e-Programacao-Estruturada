@@ -4,6 +4,9 @@
 
 int main()
 {
+
+    // Código feito por Lucas Peixoto
+
     setlocale(LC_ALL, "Portuguese");
 
     int escolhaFruta, qntFruta, carrinho = 0, continuar = 1;
@@ -19,27 +22,26 @@ int main()
         printf("Qual fruta você deseja adicionar ? ");
         scanf("%d", &escolhaFruta);
 
-        if (escolhaFruta == 1)
+        switch (escolhaFruta)
         {
+        case 1:
             printf("Quantos abacaxis deseja comprar ? ");
             scanf("%d", &qntFruta);
             carrinho += qntFruta * 5;
-        }
-        else if (escolhaFruta == 2)
-        {
+            break;
+        case 2:
             printf("Quantas maças deseja comprar ? ");
             scanf("%d", &qntFruta);
             carrinho += qntFruta * 1;
-        }
-        else if (escolhaFruta == 3)
-        {
+            break;
+        case 3:
             printf("Quantas peras deseja comprar ? ");
             scanf("%d", &qntFruta);
             carrinho += qntFruta * 4;
-        }
-        else
-        {
+            break;
+        default:
             printf("Fruta inválida!");
+            break;
         }
 
         printf("\n\nCarrinho = R$ %d", carrinho);

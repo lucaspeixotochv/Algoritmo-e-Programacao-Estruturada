@@ -4,9 +4,12 @@
 
 int main()
 {
+
+    // Código feito por Lucas Peixoto
+
     setlocale(LC_ALL, "");
 
-    int soma = 0;
+    long int soma = 0;
 
     for (int i = 0; i < 1000; i++)
     {
@@ -17,7 +20,7 @@ int main()
         }
     }
 
-    printf("O resultado da soma é : %d", soma);
+    printf("\n\nO resultado da soma é : %ld", soma);
 
     return 0;
 }
