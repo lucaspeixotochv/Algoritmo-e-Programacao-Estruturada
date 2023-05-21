@@ -24,6 +24,7 @@ int numberOfUsers = 0;
 void menu();
 int generateId();
 void createUser();
+void updateUser();
 
 int main()
 {
@@ -43,9 +44,9 @@ void menu()
     printf("---------------------------\n\n");
 
     printf("1 - Criar usuário\n");
-    printf("2 - Buscar um usuário\n");
+    printf("2 - Atualizar dados de um usuário\n");
     printf("3 - Deletar um usuário\n");
-    printf("4 - Atualizar dados de um usuário\n");
+    printf("4 - Buscar um usuário\n");
     printf("Informe sua ação : ");
     scanf("%d", &option);
 
@@ -54,9 +55,9 @@ void menu()
     case 1:
         createUser();
         break;
-    // case 2:
-    //     updateUser();
-    //     break;
+    case 2:
+        updateUser();
+        break;
     // case 3:
     //     deleteUser();
     //     break;
@@ -156,9 +157,157 @@ void createUser()
         printf("Opção inválida. Por favor, informe 1 para 'Sim' ou 0 para 'Não'.\n");
     }
 
-    printf("Usuário adicionado com sucesso!\n");
+    printf("Usuário adicionado com sucesso!\n\n");
+    printf("O ID do usuário criado foi : %d", ids[numberOfUsers]);
+
     numberOfUsers++;
 
+    printf("\n\nRetornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
+
+void updateUser()
+{
+    if (numberOfUsers == 0)
+    {
+        printf("\nNão há usuários para atualizar.\n");
+        printf("Retornando para o menu...\n\n");
+        sleep(5);
+        menu();
+    }
+
+    printf("---------------------------\n");
+    printf("    ATUALIZAÇÃO DE USUÁRIO  \n");
+    printf("---------------------------\n\n");
+
+    int id;
+    bool found = false;
+    int index;
+
+    printf("Informe o ID do usuário que deseja atualizar: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < numberOfUsers; i++)
+    {
+        if (ids[i] == id)
+        {
+            found = true;
+            index = i;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        printf("Usuário com ID %d não encontrado.\n", id);
+        printf("Retornando para o menu...\n\n");
+        sleep(5);
+        menu();
+    }
+
+    int option;
+
+    printf("\nEscolha o campo que deseja atualizar:\n\n");
+    printf("1 - Nome\n");
+    printf("Nome atual : %s\n", names[index]);
+    printf("2 - Email\n");
+    printf("Email atual : %s\n", emails[index]);
+    printf("3 - Sexo\n");
+    printf("Sexo atual : %s\n", gender[index]);
+    printf("4 - Altura\n");
+    printf("Altura atual : %.2lf\n", heigth[index]);
+    printf("5 - Vacinado\n");
+    printf("Vacinado atual : %d\n", vacines[index]);
+    printf("Informe sua escolha: ");
+    scanf("%d", &option);
+
+    getchar();
+
+    switch (option)
+    {
+    case 1:
+    {
+        printf("Informe o novo nome do usuário: ");
+        fgets(names[index], NAME_LENGTH, stdin);
+        break;
+    }
+    case 2:
+    {
+        while (true)
+        {
+            printf("Informe o novo email do usuário: ");
+            fgets(emails[index], EMAIL_LENGTH, stdin);
+
+            emails[index][strcspn(emails[index], "\n")] = '\0';
+
+            if (strchr(emails[index], '@') != NULL)
+            {
+                break;
+            }
+
+            printf("Email inválido. O email informado não contém o caractere '@'.\n");
+        }
+        break;
+    }
+    case 3:
+    {
+        while (true)
+        {
+            printf("Informe o novo sexo do usuário (Feminino, Masculino, Indiferente): ");
+            fgets(gender[index], GENDER_LENGTH, stdin);
+
+            gender[index][strcspn(gender[index], "\n")] = '\0';
+
+            if (strcmp(gender[index], "Feminino") == 0 || strcmp(gender[index], "Masculino") == 0 || strcmp(gender[index], "Indiferente") == 0)
+            {
+                break;
+            }
+
+            printf("Sexo inválido. Por favor, informe 'Feminino', 'Masculino' ou 'Indiferente'.\n");
+        }
+        break;
+    }
+    case 4:
+    {
+        while (true)
+        {
+            printf("Informe a nova altura do usuário (entre 1 e 2 metros): ");
+            scanf("%lf", &heigth[index]);
+
+            if (heigth[index] >= 1.0 && heigth[index] <= 2.0)
+            {
+                break;
+            }
+
+            printf("Altura inválida. Por favor, informe um valor entre 1 e 2 metros.\n");
+        }
+        break;
+    }
+    case 5:
+    {
+        while (true)
+        {
+            printf("Informe se o usuário foi vacinado (1) Sim, (2) Não: ");
+            scanf("%d", &vacines[index]);
+
+            if (vacines[index] == 1 || vacines[index] == 0)
+            {
+                break;
+            }
+
+            printf("Opção inválida. Por favor, informe 1 para 'Sim' ou 0 para 'Não'.\n");
+        }
+        break;
+    }
+    default:
+        printf("Opção inválida. Retornando para o menu...\n\n");
+        sleep(5);
+        menu();
+        break;
+    }
+
+    printf("Usuário atualizado com sucesso!\n");
     printf("Retornando para o menu...\n\n");
     sleep(5);
     menu();
