@@ -26,6 +26,7 @@ int generateId();
 void createUser();
 void updateUser();
 void deleteUser();
+void getUser();
 
 int main()
 {
@@ -62,9 +63,9 @@ void menu()
     case 3:
         deleteUser();
         break;
-    // case 4:
-    //     getUser();
-    //     break;
+    case 4:
+        getUser();
+        break;
     default:
         printf("---------------------------\n");
         printf("         AÇÃO INVÁLIDA     \n");
@@ -371,3 +372,57 @@ void deleteUser()
     sleep(5);
     menu();
 }
+
+void getUser()
+{
+    if (numberOfUsers == 0)
+    {
+        printf("\nNão há usuários cadastrados.\n");
+        printf("Retornando para o menu...\n\n");
+        sleep(5);
+        menu();
+    }
+
+    printf("---------------------------\n");
+    printf("     BUSCAR USUÁRIO POR EMAIL    \n");
+    printf("---------------------------\n\n");
+
+    char searchEmail[EMAIL_LENGTH];
+    bool found = false;
+    int index;
+
+    printf("Informe o email do usuário que deseja buscar: ");
+    getchar();
+    fgets(searchEmail, EMAIL_LENGTH, stdin);
+    searchEmail[strcspn(searchEmail, "\n")] = '\0';
+
+    for (int i = 0; i < numberOfUsers; i++)
+    {
+        if (strcmp(emails[i], searchEmail) == 0)
+        {
+            found = true;
+            index = i;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        printf("Usuário com o email '%s' não encontrado.\n", searchEmail);
+    }
+    else
+    {
+        printf("\nUsuário encontrado:\n");
+        printf("ID: %d\n", ids[index]);
+        printf("Nome: %s\n", names[index]);
+        printf("Email: %s\n", emails[index]);
+        printf("Sexo: %s\n", gender[index]);
+        printf("Altura: %.2lf\n", heigth[index]);
+        printf("Vacinado: %s\n", vacines[index] ? "Sim" : "Não");
+    }
+
+    printf("\nRetornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
+
