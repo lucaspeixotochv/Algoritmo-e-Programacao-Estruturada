@@ -7,6 +7,9 @@
 #include <unistd.h>
 #include <ctype.h>
 
+// Feito por : Lucas Peixoto Chaves
+// Link do repositório no GitHub do projeto : https://github.com/lucaspeixotochv/Algoritmo-e-Programacao-Estruturada/tree/main/1%C2%B0%20Projeto
+
 #define MAX_USUARIOS 1000
 #define NAME_LENGTH 70
 #define EMAIL_LENGTH 80
