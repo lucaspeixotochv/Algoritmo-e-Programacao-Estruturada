@@ -17,10 +17,19 @@ int ids[MAX_USUARIOS];
 char names[MAX_USUARIOS][NAME_LENGTH];
 char emails[MAX_USUARIOS][EMAIL_LENGTH];
 char gender[MAX_USUARIOS][GENDER_LENGTH];
-char andress[MAX_USUARIOS][ADRESS_LENGTH];
+char adress[MAX_USUARIOS][ADRESS_LENGTH];
 double heigth[MAX_USUARIOS];
 int vacines[MAX_USUARIOS];
 int numberOfUsers = 0;
+int numberOfUsersBackup;
+
+int backupIds[MAX_USUARIOS];
+char backupNames[MAX_USUARIOS][NAME_LENGTH];
+char backupEmails[MAX_USUARIOS][EMAIL_LENGTH];
+char backupGender[MAX_USUARIOS][GENDER_LENGTH];
+char backupAdress[MAX_USUARIOS][ADRESS_LENGTH];
+double backupHeigth[MAX_USUARIOS];
+int backupVacines[MAX_USUARIOS];
 
 void menu();
 int generateId();
@@ -29,7 +38,8 @@ void updateUser();
 void deleteUser();
 void getUser();
 void getAllUsers();
-void backupUsers();
+void backup();
+void restore();
 
 int main()
 {
@@ -54,6 +64,7 @@ void menu()
     printf("(d) - Buscar um usuário\n");
     printf("(e) - Mostrar todos os usuários\n");
     printf("(f) - Fazer backup\n");
+    printf("(g) - Fazer Restauração dos dados\n");
     printf("Informe sua ação : ");
     scanf(" %c", &option);
 
@@ -77,7 +88,10 @@ void menu()
         getAllUsers();
         break;
     case 'f':
-        backupUsers();
+        backup();
+        break;
+    case 'g':
+        restore();
         break;
     default:
         printf("---------------------------\n");
@@ -373,7 +387,7 @@ void deleteUser()
         strcpy(names[i], names[i + 1]);
         strcpy(emails[i], emails[i + 1]);
         strcpy(gender[i], gender[i + 1]);
-        strcpy(andress[i], andress[i + 1]);
+        strcpy(adress[i], adress[i + 1]);
         heigth[i] = heigth[i + 1];
         vacines[i] = vacines[i + 1];
     }
@@ -471,22 +485,16 @@ void getAllUsers()
     menu();
 }
 
-void backupUsers()
+void backup()
 {
-    int backupIds[MAX_USUARIOS];
-    char backupNames[MAX_USUARIOS][NAME_LENGTH];
-    char backupEmails[MAX_USUARIOS][EMAIL_LENGTH];
-    char backupGender[MAX_USUARIOS][GENDER_LENGTH];
-    char backupAddress[MAX_USUARIOS][ADRESS_LENGTH];
-    double backupHeigth[MAX_USUARIOS];
-    int backupVacines[MAX_USUARIOS];
+    numberOfUsersBackup = numberOfUsers;
 
     for (int i = 0; i < numberOfUsers; i++) {
         backupIds[i] = ids[i];
         strcpy(backupNames[i], names[i]);
         strcpy(backupEmails[i], emails[i]);
         strcpy(backupGender[i], gender[i]);
-        strcpy(backupAddress[i], andress[i]);
+        strcpy(backupAdress[i], adress[i]);
         backupHeigth[i] = heigth[i];
         backupVacines[i] = vacines[i];
     }
@@ -498,4 +506,29 @@ void backupUsers()
     menu();
 }
 
+void restore()
+{
+    if (numberOfUsersBackup == 0) {
+        printf("Não há dados de backup para restaurar.\n\n");
+        printf("Retornando para o menu...\n\n");
+        sleep(5);
+        menu();
+    }
 
+    numberOfUsers = numberOfUsersBackup;
+
+    for (int i = 0; i < numberOfUsersBackup; i++) {
+        ids[i] = backupIds[i];
+        strcpy(names[i], backupNames[i]);
+        strcpy(emails[i], backupEmails[i]);
+        strcpy(gender[i], backupGender[i]);
+        strcpy(adress[i], backupAdress[i]);
+        heigth[i] = backupHeigth[i];
+        vacines[i] = backupVacines[i];
+    }
+
+    printf("Dados restaurados com sucesso!\n\n");
+    printf("Retornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
