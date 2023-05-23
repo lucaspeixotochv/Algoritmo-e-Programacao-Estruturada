@@ -27,6 +27,7 @@ void createUser();
 void updateUser();
 void deleteUser();
 void getUser();
+void getAllUsers();
 
 int main()
 {
@@ -49,6 +50,7 @@ void menu()
     printf("2 - Atualizar dados de um usuário\n");
     printf("3 - Deletar um usuário\n");
     printf("4 - Buscar um usuário\n");
+    printf("5 - Mostrar todos os usuários\n");
     printf("Informe sua ação : ");
     scanf("%d", &option);
 
@@ -65,6 +67,9 @@ void menu()
         break;
     case 4:
         getUser();
+        break;
+    case 5:
+        getAllUsers();
         break;
     default:
         printf("---------------------------\n");
@@ -425,4 +430,37 @@ void getUser()
     sleep(5);
     menu();
 }
+
+void getAllUsers()
+{
+    if (numberOfUsers == 0)
+    {
+        printf("\nNão há usuários cadastrados.\n");
+        printf("Retornando para o menu...\n\n");
+        sleep(5);
+        menu();
+    }
+
+    printf("---------------------------\n");
+    printf("   LISTA DE TODOS OS USUÁRIOS  \n");
+    printf("---------------------------\n\n");
+
+    for (int i = 0; i < numberOfUsers; i++)
+    {
+        printf("ID: %d\n", ids[i]);
+        printf("Nome: %s\n", names[i]);
+        printf("Email: %s\n", emails[i]);
+        printf("Sexo: %s\n", gender[i]);
+        printf("Altura: %.2lf\n", heigth[i]);
+        printf("Vacinado: %s\n", vacines[i] ? "Sim" : "Não");
+        printf("---------------------------------\n");
+    }
+
+    printf("Total de usuários: %d\n", numberOfUsers);
+
+    printf("\nRetornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
+
 
