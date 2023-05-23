@@ -5,6 +5,7 @@
 #include <string.h>
 #include <locale.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #define MAX_USUARIOS 1000
 #define NAME_LENGTH 70
@@ -28,6 +29,7 @@ void updateUser();
 void deleteUser();
 void getUser();
 void getAllUsers();
+void backupUsers();
 
 int main()
 {
@@ -40,36 +42,42 @@ int main()
 
 void menu()
 {
-    int option;
+    char option;
 
     printf("---------------------------\n");
     printf("            MENU           \n");
     printf("---------------------------\n\n");
 
-    printf("1 - Criar usuário\n");
-    printf("2 - Atualizar dados de um usuário\n");
-    printf("3 - Deletar um usuário\n");
-    printf("4 - Buscar um usuário\n");
-    printf("5 - Mostrar todos os usuários\n");
+    printf("(a) - Criar usuário\n");
+    printf("(b) - Atualizar dados de um usuário\n");
+    printf("(c) - Deletar um usuário\n");
+    printf("(d) - Buscar um usuário\n");
+    printf("(e) - Mostrar todos os usuários\n");
+    printf("(f) - Fazer backup\n");
     printf("Informe sua ação : ");
-    scanf("%d", &option);
+    scanf(" %c", &option);
+
+    option = tolower(option);
 
     switch (option)
     {
-    case 1:
+    case 'a':
         createUser();
         break;
-    case 2:
+    case 'b':
         updateUser();
         break;
-    case 3:
+    case 'c':
         deleteUser();
         break;
-    case 4:
+    case 'd':
         getUser();
         break;
-    case 5:
+    case 'e':
         getAllUsers();
+        break;
+    case 'f':
+        backupUsers();
         break;
     default:
         printf("---------------------------\n");
@@ -457,6 +465,33 @@ void getAllUsers()
     }
 
     printf("Total de usuários: %d\n", numberOfUsers);
+
+    printf("\nRetornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
+
+void backupUsers()
+{
+    int backupIds[MAX_USUARIOS];
+    char backupNames[MAX_USUARIOS][NAME_LENGTH];
+    char backupEmails[MAX_USUARIOS][EMAIL_LENGTH];
+    char backupGender[MAX_USUARIOS][GENDER_LENGTH];
+    char backupAddress[MAX_USUARIOS][ADRESS_LENGTH];
+    double backupHeigth[MAX_USUARIOS];
+    int backupVacines[MAX_USUARIOS];
+
+    for (int i = 0; i < numberOfUsers; i++) {
+        backupIds[i] = ids[i];
+        strcpy(backupNames[i], names[i]);
+        strcpy(backupEmails[i], emails[i]);
+        strcpy(backupGender[i], gender[i]);
+        strcpy(backupAddress[i], andress[i]);
+        backupHeigth[i] = heigth[i];
+        backupVacines[i] = vacines[i];
+    }
+
+    printf("Backup criado com sucesso!\n");
 
     printf("\nRetornando para o menu...\n\n");
     sleep(5);
