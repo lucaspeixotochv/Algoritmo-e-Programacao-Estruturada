@@ -289,7 +289,7 @@ void updateUser()
     {
         while (true)
         {
-            printf("Informe se o usuário foi vacinado (1) Sim, (2) Não: ");
+            printf("Informe se o usuário foi vacinado (1) Sim, (0) Não: ");
             scanf("%d", &vacines[index]);
 
             if (vacines[index] == 1 || vacines[index] == 0)
