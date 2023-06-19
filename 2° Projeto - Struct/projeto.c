@@ -37,7 +37,7 @@ int numberOfUsers = 0;
 void menu();
 int generateId();
 void createUser();
-// void updateUser();
+void updateUser();
 // void deleteUser();
 // void getUser();
 // void getAllUsers();
@@ -75,9 +75,9 @@ void menu()
     case 'a':
         createUser();
         break;
-    // case 'b':
-    //     updateUser();
-    //     break;
+    case 'b':
+        updateUser();
+        break;
     // case 'c':
     //     deleteUser();
     //     break;
@@ -192,6 +192,109 @@ void createUser()
     numberOfUsers++;
 
     printf("\n\nRetornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
+
+void updateUser()
+{
+    int userId;
+    bool userFound = false;
+
+    printf("---------------------------\n");
+    printf("   ATUALIZAÇÃO DE USUÁRIO   \n");
+    printf("---------------------------\n\n");
+
+    printf("Informe o ID do usuário que deseja atualizar: ");
+    scanf("%d", &userId);
+
+    for (int i = 0; i < numberOfUsers; i++)
+    {
+        if (users[i].id == userId)
+        {
+            userFound = true;
+
+            printf("\nUsuário encontrado!\n\n");
+            printf("ID do usuário: %d\n", users[i].id);
+            printf("Nome atual: %s\n", users[i].name);
+            printf("Email atual: %s\n", users[i].email);
+            printf("Sexo atual: %s\n", users[i].gender);
+            printf("Altura atual: %.2lf\n", users[i].height);
+            printf("Status de vacinação atual: %s\n", users[i].vaccines == 1 ? "Sim" : "Não");
+
+            printf("\nAtualize os dados do usuário:\n");
+
+            printf("Novo nome: ");
+            getchar();
+            fgets(users[i].name, NAME_LENGTH, stdin);
+
+            while (true)
+            {
+                printf("Novo email: ");
+                fgets(users[i].email, EMAIL_LENGTH, stdin);
+
+                users[i].email[strcspn(users[i].email, "\n")] = '\0';
+
+                if (strchr(users[i].email, '@') != NULL)
+                {
+                    break;
+                }
+
+                printf("Email inválido. O email informado não contém o caractere '@'.\n");
+            }
+
+            while (true)
+            {
+                printf("Novo sexo (Feminino, Masculino, Indiferente): ");
+                fgets(users[i].gender, GENDER_LENGTH, stdin);
+
+                users[i].gender[strcspn(users[i].gender, "\n")] = '\0';
+
+                if (strcmp(users[i].gender, "Feminino") == 0 || strcmp(users[i].gender, "Masculino") == 0 || strcmp(users[i].gender, "Indiferente") == 0)
+                {
+                    break;
+                }
+
+                printf("Sexo inválido. Por favor, informe 'Feminino', 'Masculino' ou 'Indiferente'.\n");
+            }
+
+            while (true)
+            {
+                printf("Nova altura (entre 1 e 2 metros): ");
+                scanf("%lf", &users[i].height);
+
+                if (users[i].height >= 1.0 && users[i].height <= 2.0)
+                {
+                    break;
+                }
+
+                printf("Altura inválida. Por favor, informe um valor entre 1 e 2 metros.\n");
+            }
+
+            while (true)
+            {
+                printf("Novo status de vacinação (1) Sim, (0) Não: ");
+                scanf("%d", &users[i].vaccines);
+
+                if (users[i].vaccines == 1 || users[i].vaccines == 0)
+                {
+                    break;
+                }
+
+                printf("Opção inválida. Por favor, informe 1 para 'Sim' ou 0 para 'Não'.\n");
+            }
+
+            printf("\nDados do usuário atualizados com sucesso!\n");
+            break;
+        }
+    }
+
+    if (!userFound)
+    {
+        printf("Usuário com ID %d não encontrado.\n", userId);
+    }
+
+    printf("\nRetornando para o menu...\n\n");
     sleep(5);
     menu();
 }
