@@ -38,7 +38,7 @@ void menu();
 int generateId();
 void createUser();
 void updateUser();
-// void deleteUser();
+void deleteUser();
 // void getUser();
 // void getAllUsers();
 // void backup();
@@ -78,9 +78,9 @@ void menu()
     case 'b':
         updateUser();
         break;
-    // case 'c':
-    //     deleteUser();
-    //     break;
+    case 'c':
+        deleteUser();
+        break;
     // case 'd':
     //     getUser();
     //     break;
@@ -285,6 +285,65 @@ void updateUser()
             }
 
             printf("\nDados do usuário atualizados com sucesso!\n");
+            break;
+        }
+    }
+
+    if (!userFound)
+    {
+        printf("Usuário com ID %d não encontrado.\n", userId);
+    }
+
+    printf("\nRetornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
+
+void deleteUser()
+{
+    int userId;
+    bool userFound = false;
+
+    printf("---------------------------\n");
+    printf("      DELETAR USUÁRIO       \n");
+    printf("---------------------------\n\n");
+
+    printf("Informe o ID do usuário que deseja deletar: ");
+    scanf("%d", &userId);
+
+    for (int i = 0; i < numberOfUsers; i++)
+    {
+        if (users[i].id == userId)
+        {
+            userFound = true;
+
+            printf("\nUsuário encontrado!\n\n");
+            printf("ID do usuário: %d\n", users[i].id);
+            printf("Nome: %s\n", users[i].name);
+            printf("Email: %s\n", users[i].email);
+            printf("Sexo: %s\n", users[i].gender);
+            printf("Altura: %.2lf\n", users[i].height);
+            printf("Status de vacinação: %s\n", users[i].vaccines == 1 ? "Sim" : "Não");
+
+            printf("\nTem certeza de que deseja deletar esse usuário? (s/n): ");
+            char confirmation;
+            scanf(" %c", &confirmation);
+
+            if (tolower(confirmation) == 's')
+            {
+                for (int j = i; j < numberOfUsers - 1; j++)
+                {
+                    users[j] = users[j + 1];
+                }
+
+                numberOfUsers--;
+                printf("Usuário deletado com sucesso!\n");
+            }
+            else
+            {
+                printf("Ação de exclusão cancelada.\n");
+            }
+
             break;
         }
     }
