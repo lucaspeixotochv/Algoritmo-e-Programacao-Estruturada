@@ -6,6 +6,9 @@
 #include <string.h>
 #include <unistd.h>
 
+// Feito por : Lucas Peixoto Chaves
+// Link do repositório no GitHub do projeto : https://github.com/lucaspeixotochv/Algoritmo-e-Programacao-Estruturada/tree/main/2%C2%B0%20Projeto%20-%20Struct
+
 #define MAX_USUARIOS 1000
 #define NAME_LENGTH 70
 #define EMAIL_LENGTH 80
