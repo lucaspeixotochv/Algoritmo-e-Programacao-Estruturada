@@ -41,7 +41,7 @@ void updateUser();
 void deleteUser();
 void getUser();
 void getAllUsers();
-// void backup();
+void backup();
 // void restore();
 
 int main()
@@ -87,9 +87,9 @@ void menu()
     case 'e':
         getAllUsers();
         break;
-    // case 'f':
-    //     backup();
-    //     break;
+    case 'f':
+        backup();
+        break;
     // case 'g':
     //     restore();
     //     break;
@@ -426,6 +426,25 @@ void getAllUsers()
     }
 
     printf("\nRetornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
+
+void backup()
+{
+    printf("---------------------------\n");
+    printf("         BACKUP            \n");
+    printf("---------------------------\n\n");
+
+    backupData.numberOfUsers = numberOfUsers;
+
+    for (int i = 0; i < numberOfUsers; i++)
+    {
+        backupData.users[i] = users[i];
+    }
+
+    printf("Backup dos dados realizado com sucesso!\n");
+    printf("Retornando para o menu...\n\n");
     sleep(5);
     menu();
 }
