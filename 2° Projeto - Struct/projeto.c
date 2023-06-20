@@ -40,7 +40,7 @@ void createUser();
 void updateUser();
 void deleteUser();
 void getUser();
-// void getAllUsers();
+void getAllUsers();
 // void backup();
 // void restore();
 
@@ -84,9 +84,9 @@ void menu()
     case 'd':
         getUser();
         break;
-    // case 'e':
-    //     getAllUsers();
-    //     break;
+    case 'e':
+        getAllUsers();
+        break;
     // case 'f':
     //     backup();
     //     break;
@@ -394,6 +394,35 @@ void getUser()
     if (!userFound)
     {
         printf("Usuário com o email '%s' não encontrado.\n", userEmail);
+    }
+
+    printf("\nRetornando para o menu...\n\n");
+    sleep(5);
+    menu();
+}
+
+void getAllUsers()
+{
+    printf("---------------------------\n");
+    printf("     LISTA DE USUÁRIOS     \n");
+    printf("---------------------------\n\n");
+
+    if (numberOfUsers == 0)
+    {
+        printf("Nenhum usuário cadastrado.\n");
+    }
+    else
+    {
+        for (int i = 0; i < numberOfUsers; i++)
+        {
+            printf("ID do usuário: %d\n", users[i].id);
+            printf("Nome: %s\n", users[i].name);
+            printf("Email: %s\n", users[i].email);
+            printf("Sexo: %s\n", users[i].gender);
+            printf("Altura: %.2lf\n", users[i].height);
+            printf("Status de vacinação: %s\n", users[i].vaccines == 1 ? "Sim" : "Não");
+            printf("---------------------------\n");
+        }
     }
 
     printf("\nRetornando para o menu...\n\n");
